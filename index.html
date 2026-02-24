@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Animated Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-gradient: linear-gradient(135deg, #9b5de5, #f15bb5, #fee440, #00bbf9);
+      --card-shadow: 0 4px 22px rgba(145,102,246,0.15);
+      --nav-bg: rgba(255,255,255,0.84);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: #331e36;
+      background: var(--main-gradient);
+      min-height: 100vh;
+      background-size: 200% 200%;
+      animation: bgmove 8s infinite alternate;
+    }
+    @keyframes bgmove {
+      0% {background-position: 0% 0%;}
+      100% {background-position: 100% 200%;}
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; width: 100%; z-index: 99;
+      background: var(--nav-bg);
+      backdrop-filter: blur(6px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 38px;
+      box-shadow: 0 4px 10px #eee;
+      transition: background 0.3s;
+    }
+    nav.scrolled { background: #fff; }
+    nav .logo {
+      font-size: 1.65em; font-weight: bold;
+      background: linear-gradient(90deg, #9b5de5, #f15bb5, #fee440, #00bbf9);
+      -webkit-background-clip: text; color: transparent; background-clip: text;
+    }
+    nav ul {
+      display: flex; gap: 2em;
+      list-style: none; margin: 0; padding: 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #331e36;
+      font-weight: 500;
+      font-size: 1.06em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: #f15bb5; border-bottom: 2px solid #9b5de5;
+    }
+
+    .section {
+      padding: 80px 0 60px 0; min-height: 70vh;
+      width: 94%; max-width: 1100px; margin: auto;
+      opacity: 0; transform: translateY(48px);
+      transition: opacity 0.7s cubic-bezier(.22,.68,.19,1.11), transform 0.7s cubic-bezier(.22,.68,.19,1.11);
+    }
+    .section.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+    }
+    .hero h1 {
+      font-size: 3em; margin: 0;
+      background: linear-gradient(90deg, #9b5de5, #f15bb5, #fee440, #00bbf9);
+      -webkit-background-clip: text; color: transparent; background-clip: text;
+      font-weight: 900;
+      animation: fadeInDown 1.15s;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .hero .typewriter {
+      display: inline-block;
+      font-size: 1.35em;
+      border-right: 2px solid #f15bb5;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: blink 0.9s steps(1) infinite;
+      margin-top: 14px;
+      margin-bottom: 22px;
+      color: #331e36;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+    @keyframes blink {
+      0%, 100% { border-color: #f15bb5; }
+      50% { border-color: transparent;}
+    }
+    .hero .cta {
+      padding: 15px 36px;
+      margin-top: 32px;
+      background: linear-gradient(90deg,#f15bb5,#9b5de5);
+      color: #fff; border: none; border-radius: 28px;
+      font-size: 1.21em; font-weight: bold;
+      box-shadow: 0 10px 30px #9b5de570;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.2s;
+      outline: none;
+    }
+    .hero .cta:hover {
+      transform: scale(1.07) translateY(-3px);
+      box-shadow: 0 12px 35px 0 #9b5de580;
+    }
+
+    .about, .projects, .certificates, .contact {
+      background: #fff5f8cc;
+      margin: 30px 0 22px 0;
+      border-radius: 26px;
+      box-shadow: var(--card-shadow);
+      padding: 46px 34px;
+    }
+    .about h2,
+    .projects h2,
+    .certificates h2,
+    .contact h2 {
+      font-size: 2em;
+      background: linear-gradient(90deg,#9b5de5,#f15bb5);
+      -webkit-background-clip: text;
+      color: transparent;
+      background-clip: text;
+      margin-top: 0; margin-bottom: 20px;
+      text-align: center;
+      font-weight: 800;
+    }
+    .about p {
+      font-size: 1.16em;
+      line-height: 1.7;
+      color: #542c6b;
+      margin: 0px 0 16px;
+      text-align: center;
+    }
+
+    .projects-list, .certificates-list {
+      display: flex; flex-wrap: wrap; gap: 28px;
+      justify-content: center; margin: 28px 0 0 0;
+    }
+    .project, .certificate {
+      background: #fff; border-radius: 18px; box-shadow: var(--card-shadow);
+      padding: 26px 20px; min-width: 230px; flex: 1 1 260px; max-width: 350px;
+      min-height: 180px;
+      display: flex; flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.16s, box-shadow 0.19s;
+      margin-bottom: 10px;
+    }
+    .project:hover, .certificate:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 14px 32px #00bbf955;
+    }
+    .project-title {
+      font-size: 1.13em; font-weight: 700; margin-bottom: 8px;
+      color: #9b5de5;
+    }
+    .project-desc {
+      font-size: 0.97em; color: #22223bbb; min-height: 48px; margin-bottom: 10px;
+    }
+    .project-links a {
+      color: #00bbf9; margin-right: 16px; font-weight: 600;
+      text-decoration: none; font-size: 0.97em;
+      transition: color 0.18s;
+    }
+    .project-links a:hover { color: #f15bb5; }
+
+    .project-tech {
+      margin: 16px 0 0 0;
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .project-tech span {
+      background: #fee44077;
+      border-radius: 10px; padding: 4px 10px; font-size: 0.95em;
+      color: #472880;
+      font-weight: 500;
+    }
+    .certificate-title {
+      font-weight: 600; font-size: 1.09em; color: #f15bb5; margin-bottom: 9px;
+    }
+    .download-btn {
+      background: linear-gradient(90deg,#43e97b 0,#38f9d7 100%);
+      padding: 10px 18px; border: none; color: #013a55;
+      border-radius: 11px; font-weight: bold; cursor: pointer;
+      font-size: 1em;
+      box-shadow: 0 2px 8px #43e97b44;
+      margin-top: 8px;
+      transition: background 0.2s, transform 0.18s;
+    }
+    .download-btn:hover {
+      background: linear-gradient(90deg,#38f9d7 20%,#9b5de5);
+      color: #fff; transform: translateY(-2px) scale(1.06);
+    }
+    .contact form {
+      display: flex; flex-direction: column; gap: 16px; max-width: 400px; margin: 0 auto;
+    }
+    .contact input, .contact textarea {
+      padding: 12px 16px;
+      border: 1.5px solid #fee440cc;
+      border-radius: 8px; font-size: 1em;
+      font-family: inherit; resize: none;
+      transition: border-color 0.17s, box-shadow 0.17s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      border-color: #9b5de5;
+      box-shadow: 0 2px 8px #fee44033;
+      outline: none;
+    }
+    .contact button {
+      background: linear-gradient(90deg,#9b5de5,#fee440);
+      color: #441c56; font-weight: bold;
+      padding: 11px 0; border: none;
+      border-radius: 12px; margin-top: 5px; font-size: 1.05em;
+      cursor: pointer;
+      transition: background 0.19s, color 0.17s;
+    }
+    .contact button:hover {
+      background: linear-gradient(270deg,#f15bb5,#fee440 70%);
+      color: #fff;
+    }
+    .social-links {
+      margin-top: 16px; display: flex; justify-content: center; gap: 20px;
+    }
+    .social-links a {
+      color: #9b5de5; font-size: 1.73em;
+      transition: color 0.23s;
+    }
+    .social-links a:hover { color: #f15bb5; }
+    footer {
+      text-align: center; background: transparent; color: #fff;
+      font-size: 1em; margin: 30px 0 18px 0;
+      letter-spacing: 1.1px;
+    }
+    /* Responsive */
+    @media (max-width: 760px) {
+      nav {padding: 11px 14px;}
+      .about, .projects, .certificates, .contact {
+        padding: 25px 10px; border-radius: 13px;
+      }
+      .section {
+        padding: 55px 0 38px 0;
+      }
+      .projects-list, .certificates-list { flex-direction: column; gap: 18px; }
+      .project, .certificate { min-width: 90%; max-width: 99vw;}
+      .hero h1 { font-size: 2em;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="logo">MyPortfolio</span>
+    <ul>
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="section hero visible">
+    <h1>Hello, I'm <span style="color:#fee440">Your Name</span></h1>
+    <div id="typewriter" class="typewriter"></div>
+    <button class="cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+      Explore My Work
+    </button>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <h2>About Me</h2>
+    <p>Hello! I'm a passionate web developer skilled in <b>HTML, CSS, JavaScript</b> and modern frameworks.
+    I love building animated, interactive, and visually compelling web experiences. Let’s create something unique together!</p>
+    <p>Interested in learning, collaborating, and exploring new technologies every day.</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section projects">
+    <h2>Projects</h2>
+    <div class="projects-list">
+      <div class="project">
+        <div class="project-title">Animated Portfolio</div>
+        <div class="project-desc">
+          A dynamic portfolio with scroll animations, downloadable certificates, and a vibrant theme.
+        </div>
+        <div class="project-tech">
+          <span>HTML</span> <span>CSS</span> <span>JavaScript</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">Demo</a>
+          <a href="#" target="_blank">Code</a>
+        </div>
+      </div>
+      <div class="project">
+        <div class="project-title">Certificate Generator</div>
+        <div class="project-desc">
+          Built a tool to generate and download custom certificates using client-side JavaScript.
+        </div>
+        <div class="project-tech">
+          <span>JS</span> <span>Canvas</span> <span>PDF</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">Demo</a>
+          <a href="#" target="_blank">Code</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certificates" class="section certificates">
+    <h2>Certificates</h2>
+    <div class="certificates-list">
+      <div class="certificate">
+        <div class="certificate-title">Web Development Certificate</div>
+        <button class="download-btn" onclick="downloadCertificate()">Download</button>
+      </div>
+      <!-- Add more certificates as needed -->
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <h2>Contact</h2>
+    <form id="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <div id="contact-msg" style="display:none;text-align:center; margin-top:19px; color:#38b000;font-weight:600;">Thank you for reaching out!</div>
+    <div class="social-links">
+      <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub">
+        <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"><path d="M8 .198C3.58.198 0 3.778 0 8.197c0 3.515 2.292 6.494 5.47 7.547.4.073.547-.174.547-.386 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.171-.89-1.171-.728-.497.055-.487.055-.487.803.057 1.226.825 1.226.825.716 1.227 1.878.872 2.336.667.073-.518.28-.873.507-1.074-1.778-.202-3.644-.889-3.644-3.96 0-.875.312-1.589.824-2.149-.083-.202-.357-1.018.078-2.122 0 0 .672-.215 2.201.82a7.612 7.612 0 012.003-.269c.68.003 1.37.092 2.009.27 1.527-1.034 2.197-.819 2.197-.819.437 1.104.163 1.92.08 2.121.513.561.822 1.274.822 2.149 0 3.078-1.868 3.755-3.651 3.953.287.247.543.735.543 1.48 0 1.068-.009 1.93-.009 2.194 0 .215.144.463.55.384C13.709 14.688 16 11.711 16 8.197c0-4.419-3.58-8-8-8"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+        <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.324 0 .725 0h14.549c.401 0 .726.513.726 1.146v13.708c0 .633-.325 1.146-.726 1.146H.724A.723.723 0 010 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.21c.837 0 1.358-.554 1.358-1.248-.015-.71-.521-1.249-1.342-1.249-.822 0-1.358.539-1.358 1.249 0 .694.52 1.248 1.326 1.248h.016zm4.908 8.21h2.4V9.359c0-.215.016-.43.079-.586.174-.43.568-.874 1.231-.874.869 0 1.217.66 1.217 1.627v4.868h2.4V9.241c0-2.177-1.161-3.192-2.71-3.192-1.248 0-1.812.687-2.129 1.17h.03V6.169h-2.4c.03.654 0 7.225 0 7.225z"/>
+        </svg>
+      </a>
+      <a href="https://twitter.com/yourprofile" target="_blank" aria-label="Twitter">
+        <svg width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16"><path d="M5.026 15c6 0 9.293-4.978 9.293-9.293 0-.141 0-.282-.01-.422A6.68 6.68 0 0016 3.542a6.658 6.658 0 01-1.889.518A3.295 3.295 0 0015.555 2.2a6.588 6.588 0 01-2.084.797A3.286 3.286 0 007.875 6.03a9.325 9.325 0 01-6.767-3.429A3.289 3.289 0 002.228 6.13 3.203 3.203 0 01.64 5.359c0 .013 0 .026 0 .039a3.284 3.284 0 002.632 3.22c-.449.121-.921.145-1.414.056a3.284 3.284 0 003.065 2.285A6.588 6.588 0 010 13.449a9.29 9.29 0 005.031 1.475"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; <span id="copy-year"></span> Your Name. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Typewriter Effect
+    const words = [
+      'Web Developer.',
+      'UI/UX Enthusiast.',
+      'Code & Color Lover.',
+      'Animation Fanatic.',
+      'Dreamer.'
+    ];
+    let twIndex = 0, charIdx = 0, isDeleting = false, speed = 60;
+    function typeWriter() {
+      const el = document.getElementById('typewriter');
+      const word = words[twIndex % words.length];
+      el.textContent = isDeleting
+        ? word.substring(0, charIdx--)
+        : word.substring(0, charIdx++);
+
+      let delta = Math.random() * 80 + speed;
+      if (isDeleting) delta /= 2;
+
+      if (!isDeleting && charIdx === word.length + 1) {
+        isDeleting = true; delta = 860;
+      } else if (isDeleting && charIdx < 0) {
+        isDeleting = false; twIndex++; delta = 760;
+      }
+      setTimeout(typeWriter, delta);
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      typeWriter();
+
+      // Scroll reveal sections
+      const sections = document.querySelectorAll('.section:not(.hero)');
+      const reveal = () => {
+        const vH = window.innerHeight;
+        sections.forEach(s => {
+          if(s.getBoundingClientRect().top < vH - 80){
+            s.classList.add('visible');
+          }
+        });
+      };
+      window.addEventListener('scroll', reveal);
+      reveal();
+
+      // Navbar active link + background
+      const navLinks = document.querySelectorAll('nav a');
+      const sectionIDs = Array.from(navLinks).map(a =>
+        a.getAttribute('href').substring(1)
+      );
+      window.addEventListener('scroll', () => {
+        let fromTop = window.scrollY + 150;
+        let found = false;
+        for (let i = sectionIDs.length-1; i >= 0; i--) {
+          let sec = document.getElementById(sectionIDs[i]);
+          if (!sec) continue;
+          if(sec.offsetTop <= fromTop) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            navLinks[i].classList.add('active');
+            found = true; break;
+          }
+        }
+        if(!found) navLinks[0].classList.add('active');
+
+        // Navbar bg change
+        if(window.scrollY > 14)
+          document.querySelector('nav').classList.add('scrolled');
+        else
+          document.querySelector('nav').classList.remove('scrolled');
+      });
+
+      // Copyright year
+      document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+      // Contact form fake submit
+      document.getElementById('contact-form').addEventListener('submit', e => {
+        e.preventDefault();
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('contact-msg').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('contact-form').reset();
+          document.getElementById('contact-form').style.display = 'flex';
+          document.getElementById('contact-msg').style.display = 'none';
+        }, 2450);
+      });
+    });
+
+    // Certificate Download (creates demo PDF)
+    function downloadCertificate(){
+      // For a real certificate, link a PDF as <a href="...pdf" download>.
+      // Demo: generates a simple certificate with JS/PDF
+      if (window.jsPDF) {
+        const doc = new jsPDF();
+        doc.setFontSize(26);
+        doc.text("Certificate of Completion", 20, 40);
+        doc.setFontSize(15);
+        doc.text("Awarded to Your Name", 20, 70);
+        doc.text("For outstanding achievement in Web Development.", 20, 90);
+        doc.save("certificate.pdf");
+      } else {
+        // fallback: download a blank demo pdf
+        const link = document.createElement('a');
+        link.href = "data:application/pdf;base64,JVBERi0xLjMKJdP0zOEKMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwvVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSXQo+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9NZWRpYUJveCBbMCAwIDYxMiA3OTJdCi9QYXJlbnQgMiAwIFIKL1Jlc291cmNlcyA8PC9Gb250IDw8Pj4+PgovQ29udGVudHMgNCAwIFIKPj4KZW5kb2JqCjQgMCBvYmoKPDwgL0xlbmd0aCAxNCA+PgpzdHJlYW0KSGVsbG8gV29ybGQhCnN0YXJ0eHJlZgo1OTUKJSVFT0YK";
+        link.download = 'certificate.pdf';
+        link.click();
+      }
+    }
+  </script>
+  <!-- Optional: Use jsPDF library for dynamic PDFs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>

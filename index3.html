@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cool Animation Portfolio</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-grad: linear-gradient(122deg, #43e97b 0%, #38f9d7 99%);
+      --accent1: #9b5de5;
+      --accent2: #f15bb5;
+      --accent3: #fee440;
+      --accent4: #00bbf9;
+      --back: #17182c;
+    }
+    html, body { height: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #17182c;
+      color: #fff;
+      min-height: 100vh;
+      background: radial-gradient(circle at 60% 20%, #38f9d7 0 18%,  #17182c 52%);
+      overflow-x: hidden;
+    }
+    nav {
+      position: fixed; left: 0; top: 0; width: 100%; z-index: 1000;
+      background: rgba(20,19,60,0.83);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 2px 24px #43e97b11;
+      padding: 22px 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    nav .menu { display: flex; gap: 2.3em; }
+    nav .menu a {
+      color: #fee440;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.08em;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+      transition: color 0.2s, border 0.2s;
+    }
+    nav .menu a.active, nav .menu a:hover {
+      color: #43e97b;
+      border-bottom: 2px solid #43e97b;
+    }
+    .hero-bg {
+      position: absolute; top:0; left:0; width: 100vw; height:450px; pointer-events:none;
+      z-index:0;
+      background: linear-gradient(120deg, #43e97b70 10%, #fee4400c 65%, #38f9d755 100%);
+      filter: blur(24px);
+      animation: hero-bg-move 8s infinite alternate;
+    }
+    @keyframes hero-bg-move {
+      0% {transform: scaleX(1.02);}
+      100% {transform: scaleX(1.27);}
+    }
+    .container { width: 96%; max-width: 1120px; margin:0 auto; position:relative; z-index:2; }
+    section { margin: 60px 0; border-radius: 20px; box-shadow: 0 8px 40px #060e2540; background: #23244a; padding: 48px 26px;}
+    /* HERO */
+    .hero { 
+      min-height: 440px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position:relative; margin-top: 100px; background:transparent; box-shadow:none; text-align:center;
+    }
+    .hero h1 {
+      font-size: 3.2em; margin: 0 0 8px 0; font-weight:900; letter-spacing: 2px;
+      background: linear-gradient(90deg,#fff,#fee440 40%,#43e97b 80%);
+      -webkit-background-clip: text; color: transparent;
+      background-clip: text;
+      animation: fadeInDown 1.2s;
+      z-index:2;
+    }
+    @keyframes fadeInDown {
+      0% {opacity:0;transform:translateY(-85px);}
+      100% {opacity:1;transform:translateY(0);}
+    }
+    .hero .typewriter {
+      display:inline-block; font-size: 1.28em; letter-spacing:1.5px;
+      color: #fee440; font-weight:600; border-right: 2px solid #43e97b; 
+      margin-top: 12px; margin-bottom: 26px;
+      animation: blink 0.9s steps(1) infinite;
+    }
+    @keyframes blink { 0%,100%{border-color:#43e97b;}50%{border-color:transparent;} }
+    .hero .cta {
+      padding: 17px 38px; margin-top: 29px;
+      background: linear-gradient(90deg,#43e97b,#38f9d7);
+      color: #23244a;
+      font-weight: bold; font-size: 1.21em;
+      border:none; border-radius: 24px;
+      box-shadow: 0 6px 26px #43e97b44;
+      cursor:pointer;
+      transition:background 0.17s, box-shadow 0.17s, transform 0.17s;
+      animation: popIn 0.85s 0.15s backwards;
+      z-index:2;
+    }
+    @keyframes popIn {
+      0% {transform: scale(0.82);}
+      100% {transform: scale(1);}
+    }
+    .hero .cta:hover {
+      background: linear-gradient(90deg,#43e97b,#fee440 90%);
+      color: #fff; transform: scale(1.06) translateY(-3px);
+    }
+    h2 { color: #fee440; margin:0 0 22px 0; font-size: 2.1em; font-weight:800;}
+    /* Card Grid */
+    .cards { display:flex; flex-wrap:wrap; gap: 2em; margin-top: 25px; justify-content:center; }
+    .card {
+      background: #fff5f8;
+      border-radius: 18px; box-shadow: 0 2px 24px #38f9d722; padding:24px 19px;
+      min-width: 240px; max-width: 340px; flex:1 1 260px; margin-bottom:10px;
+      opacity:0; transform:translateY(54px) scale(0.98);
+      transition: opacity 0.7s cubic-bezier(.22,.68,.19,1.11), transform 0.7s cubic-bezier(.22,.68,.19,1.11);
+      will-change:opacity, transform;
+      position:relative;
+      overflow:hidden;
+    }
+    .card.visible {
+      opacity:1; transform:translateY(0) scale(1);
+    }
+    .card-anim {
+      animation: cardGlow 2.8s infinite linear;
+      box-shadow: 0 3px 28px 8px #fee44033, 0 1px 18px #43e97b18;
+    }
+    @keyframes cardGlow {
+      0%{box-shadow:0 3px 28px 8px #fee44033,0 1px 18px #43e97b18;}
+      55%{box-shadow:0 8px 38px 18px #43e97b77,0 1px 18px #fee44011;}
+      100%{box-shadow:0 3px 28px 8px #fee44033,0 1px 18px #43e97b18;}
+    }
+    .card h3 { color: #43e97b; margin: 0 0 8px 0; font-size: 1.16em; }
+    .card p { color: #23244a; margin: 0 0 13px 0; font-size: 0.98em;}
+    .card .stack { margin-top:15px; display:flex; flex-wrap: wrap; gap:7px;}
+    .card .stack span {
+      padding:3px 10px; border-radius:8px;
+      background: #fee44033; color: #2b3756; font-size:0.97em;
+      font-weight:500;
+    }
+    .card .btn {
+      background: linear-gradient(90deg,#43e97b,#fee440);
+      color:#2b3756; border:none;
+      border-radius:8px; font-size:0.97em; font-weight:600;
+      padding:8px 16px; cursor:pointer;
+      margin-top:7px;
+      box-shadow:0 2px 8px #43e97b22;
+      transition:background 0.18s,color 0.18s;
+    }
+    .card .btn:hover {
+      background:linear-gradient(90deg,#fee440,#38f9d7);
+      color:#fff; transform:scale(1.07) translateY(-2px);
+    }
+    /* Certificates */
+    .certificates .btn {margin-top:13px;}
+    /* Contact */
+    .contact form {display:flex; flex-direction:column; gap:14px; max-width:400px; margin:0 auto;}
+    .contact input, .contact textarea {
+      padding:10px 13px; font-size:1em;
+      border:1.5px solid #43e97b44; border-radius:8px;
+      font-family:inherit; resize:none; transition:border-color 0.13s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      border-color: #43e97b; outline:none;
+    }
+    .contact button {
+      background:linear-gradient(90deg,#6841be,#43e97b);
+      color:#fff; border:none; border-radius:11px;
+      font-size:1em; font-weight:bold; padding:11px 0;
+      cursor:pointer; transition:background 0.18s;
+    }
+    .contact button:hover {
+      background:linear-gradient(90deg,#43e97b,#6841be); color:#fff;
+    }
+    .footer {text-align:center; color:#43e97b;font-size:1em;margin:37px 0 13px 0;}
+    /* Responsive */
+    @media(max-width:780px) {
+      .container{width:100%;padding-top:0;}
+      section{padding:28px 3vw;}
+      .cards {flex-direction:column;}
+      .card{min-width:88vw;max-width:96vw;}
+      .hero h1{font-size:2em;}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="menu">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+  <div class="hero-bg"></div>
+
+  <div class="container">
+    <section id="home" class="hero">
+      <h1>Your Name</h1>
+      <div class="typewriter" id="typewriter"></div>
+      <button class="cta" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">See My Work</button>
+    </section>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <div style="font-size:1.13em;line-height:1.6;color:#fff9;">
+        Creative full-stack developer with a passion for <b>animation</b>, modern UX/UI, and interactive web experiences.<br>
+        Skilled in HTML, CSS, JS, GSAP, and more. Let's build something unforgettable.
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <h2>Projects</h2>
+      <div class="cards">
+        <div class="card card-anim">
+          <h3>Animated Portfolio</h3>
+          <p>Modern portfolio with SVG, GSAP, and microinteractions for stunning user flow.</p>
+          <div class="stack"><span>HTML</span><span>CSS</span><span>GSAP</span></div>
+          <button class="btn" onclick="alert('Demo—add your real demo link!')">Live Demo</button>
+        </div>
+        <div class="card">
+          <h3>3D Hero Banner</h3>
+          <p>Developed a Three.js rich hero with interactive 3D objects and lighting.</p>
+          <div class="stack"><span>Three.js</span><span>ES6</span></div>
+          <button class="btn" onclick="alert('Demo—add your real demo link!')">Live Demo</button>
+        </div>
+        <div class="card">
+          <h3>Dynamic Certificate Generator</h3>
+          <p>Browser-based PDF certificate app using JS and dynamic template generation.</p>
+          <div class="stack"><span>JS</span><span>PDF</span></div>
+          <button class="btn" onclick="alert('Demo—add your real demo link!')">Live Demo</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificates" class="certificates">
+      <h2>Certificates</h2>
+      <div class="cards">
+        <div class="card card-anim">
+          <h3>Web Development Certificate</h3>
+          <p>Certified in Advanced Web Development best practices.</p>
+          <button class="btn" onclick="alert('In production, this would download your PDF.');">Download PDF</button>
+        </div>
+        <div class="card">
+          <h3>Frontend Mastery</h3>
+          <p>Completed creative frontend & animation challenges.</p>
+          <button class="btn" onclick="alert('In production, this would download your PDF.');">Download PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <form onsubmit="event.preventDefault();alert('This is a demo! Connect with me via email.');">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </div>
+  <div class="footer">&copy; <span id="this-year"></span> Your Name &middot; All Rights Reserved</div>
+
+  <!-- GSAP Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    // Typewriter effect
+    const words = [
+      'Web Developer.',
+      'Animation Master.',
+      'Creative Engineer.',
+      'UX Enthusiast.',
+      'Dreamer.'
+    ];
+    let twIndex = 0, charIdx = 0, isDeleting = false, speed = 61;
+    function typeWriter() {
+      const el = document.getElementById('typewriter');
+      const word = words[twIndex % words.length];
+      el.textContent = isDeleting
+        ? word.substring(0, charIdx--)
+        : word.substring(0, charIdx++);
+      let delta = Math.random()*80+speed;
+      if(isDeleting) delta/=2;
+      if(!isDeleting && charIdx === word.length+1){
+        isDeleting=true; delta=850;
+      } else if(isDeleting && charIdx<0){
+        isDeleting=false; twIndex++; delta=720;
+      }
+      setTimeout(typeWriter,delta);
+    }
+
+    // GSAP Scroll Animations
+    function revealCards() {
+      const cards = document.querySelectorAll('.card');
+      function revealVisible() {
+        let vH = window.innerHeight;
+        cards.forEach((c,i)=>{
+          if(c.getBoundingClientRect().top < vH - 55) c.classList.add('visible');
+        });
+      }
+      window.addEventListener('scroll', revealVisible);
+      revealVisible();
+    }
+
+    // GSAP Hero animation on load
+    function heroEntry() {
+      gsap.from('.hero .cta', {y:70,opacity:0, delay:0.67, duration:0.85,ease:'power3.out'});
+    }
+
+    // Navbar active state
+    function navActive() {
+      const navLinks = document.querySelectorAll('nav .menu a');
+      const sectionEls = Array.from(navLinks).map(link=>document.getElementById(link.getAttribute('href').slice(1)));
+      window.addEventListener('scroll',function(){
+        let fromTop = window.scrollY + 119;
+        navLinks.forEach((link,i)=>{
+          let sec=sectionEls[i],next=sectionEls[i+1];
+          if(sec && (fromTop>=sec.offsetTop) && (!next||fromTop<next.offsetTop)){
+            navLinks.forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        });
+      });
+    }
+
+    // Footer year
+    document.getElementById('this-year').textContent = new Date().getFullYear();
+
+    window.addEventListener('DOMContentLoaded', function() {
+      typeWriter();
+      heroEntry();
+      revealCards();
+      navActive();
+    });
+  </script>
+</body>
+</html>
